@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15297B6428AAF8510091BFF5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 15297B6328AAF8510091BFF5 /* Realm */; };
+		15297B6628AAF8510091BFF5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 15297B6528AAF8510091BFF5 /* RealmSwift */; };
 		15CB6D9A28A9961A0096C4BB /* TripITApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB6D9928A9961A0096C4BB /* TripITApp.swift */; };
 		15CB6D9C28A9961A0096C4BB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB6D9B28A9961A0096C4BB /* ContentView.swift */; };
 		15CB6D9E28A9961B0096C4BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15CB6D9D28A9961B0096C4BB /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15297B6628AAF8510091BFF5 /* RealmSwift in Frameworks */,
+				15297B6428AAF8510091BFF5 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +147,10 @@
 			dependencies = (
 			);
 			name = TripIT;
+			packageProductDependencies = (
+				15297B6328AAF8510091BFF5 /* Realm */,
+				15297B6528AAF8510091BFF5 /* RealmSwift */,
+			);
 			productName = TripIT;
 			productReference = 15CB6D9628A9961A0096C4BB /* TripIT.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +223,9 @@
 				Base,
 			);
 			mainGroup = 15CB6D8D28A9961A0096C4BB;
+			packageReferences = (
+				15297B6228AAF8510091BFF5 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 15CB6D9728A9961A0096C4BB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -583,6 +594,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		15297B6228AAF8510091BFF5 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		15297B6328AAF8510091BFF5 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15297B6228AAF8510091BFF5 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		15297B6528AAF8510091BFF5 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15297B6228AAF8510091BFF5 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 15CB6D8E28A9961A0096C4BB /* Project object */;
 }

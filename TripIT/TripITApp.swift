@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import RealmSwift
+
+let realmApp = RealmSwift.App(id:"tripit-hhgzq")
 
 @main
-struct TripITApp: App {
+struct TripITApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
     }
 }
+ 

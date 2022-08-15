@@ -14,6 +14,9 @@ struct ContentView: View {
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
     
+    //real connect
+    @State private var realmDBUserID = "";
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -52,12 +55,26 @@ struct ContentView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
                     
+                    Button("Realm Connect") {
+                        connectToRealm()
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: 300, height: 50)
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    
+                    TextField("RealmUserID", text: $realmDBUserID)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(10)
+                    
                     NavigationLink(destination: Text("You are logged in \(username)"),isActive: $showingLoginScreen) {
                         EmptyView();
                     }
                            
                 }//VStack
-            }  //ZStack
+            }  //ZStack 
             .navigationBarHidden(true)
         } //NavigationView
     }//View (body)
@@ -76,6 +93,21 @@ struct ContentView: View {
         } else {
             wrongPassword = 2
         }
+    }
+    
+    func connectToRealm() {
+        print("In connectToRealm Function")
+        Task {
+            do {
+                let user = try await realmApp.login(credentials: .anonymous);
+                realmDBUserID = user.id;
+                print("Realm UserID: \(realmDBUserID)")
+            } catch {
+                print("Failed to login to MongodB Realm :  \(error.localizedDescription)")
+                realmDBUserID = "Failed to Connect"
+            }
+        }
+        
     }
 }
 
