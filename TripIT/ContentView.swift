@@ -19,7 +19,7 @@ struct ContentView: View {
     @State private var realmDBUserID = "";
     
     var body: some View {
-        NavigationView {
+       NavigationView {
             ZStack {
                 Color.gray
                     .ignoresSafeArea()
@@ -80,8 +80,9 @@ struct ContentView: View {
                            
                 }//VStack
             }  //ZStack 
-            .navigationBarHidden(true)
-        } //NavigationView
+            
+       } //NavigationView
+       .navigationBarHidden(true)
     }//View (body)
     
     func authenticateUser(username: String, password: String) {
