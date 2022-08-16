@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ContentView: View {
     @State private var username = ""
@@ -15,10 +16,13 @@ struct ContentView: View {
     @State private var showingLoginScreen = false
     @State private var showMainMenu = false
     
-    //real connect
+    //realm connect
     @State private var realmDBUserID = "";
     
+    //@Published var configuration: Realm.Configuration?
+    
     var body: some View {
+      //you only need the Navigation View at the Root View
        NavigationView {
             ZStack {
                 Color.gray
@@ -74,6 +78,8 @@ struct ContentView: View {
                         EmptyView();
                     }
                     
+                    //dynamcally activate navigation of this view based
+                    //on a boolean using the isActive attribute
                     NavigationLink(destination: Menu(),isActive: $showMainMenu) {
                         EmptyView();
                     }
@@ -83,6 +89,7 @@ struct ContentView: View {
             
        } //NavigationView
        .navigationBarHidden(true)
+       .navigationBarTitle("TripIT", displayMode: .inline)
     }//View (body)
     
     func authenticateUser(username: String, password: String) {
@@ -107,9 +114,17 @@ struct ContentView: View {
             do {
                 let user = try await realmApp.login(credentials: .anonymous);
                 realmDBUserID = user.id;
+                user.flexibleSyncConfiguration(initialSubscriptions: {subs in
+                    if let _ = subs.first(named: "all-tasks") {
+                        return
+                    } else {
+                        //subs.append(QuerySubscription<Task<<#Success: Sendable#>, <#Failure: Error#>>>(name:"all-tasks"))
+                    }
+                }, rerunOnOpen: false)
                 print("Realm UserID: \(realmDBUserID)")
+                
                 if realmDBUserID != "" {
-                    showMainMenu = true
+                    showMainMenu = true //activate navigation
                 }
             } catch {
                 print("Failed to login to MongodB Realm :  \(error.localizedDescription)")

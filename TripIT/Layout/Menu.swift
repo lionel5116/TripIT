@@ -9,13 +9,14 @@ import SwiftUI
 
 struct Menu: View {
     var body: some View {
-        //NavigationView {
+        
             ZStack {
                 Color.white
                     .ignoresSafeArea()
                 VStack{
                     
-                    NavigationLink(destination: TravelView()) {
+                    NavigationLink(destination: TravelView())
+                    {
                         Text("Enter Travel Details")
                             .frame(width: 280, height: 50)
                             .font(.system(size:20,weight: .bold,design: .default))
@@ -36,7 +37,7 @@ struct Menu: View {
                     
                 } //VStack
             } //ZStack
-       // } //NavigationView
+       
         .navigationBarHidden(true)
     }
 }

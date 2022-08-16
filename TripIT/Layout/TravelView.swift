@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct TravelView: View {
+    @ObservedResults(TravelDetailItem.self) var TDItems
+    
+    @State private var showAlert = false
     
     @State private var Destination = ""
     @State private var Year  = ""
@@ -16,6 +20,7 @@ struct TravelView: View {
     @State private var BookingCode  = ""
     @State private var Hotel  = ""
     @State private var APCode  = ""
+    
     
     var body: some View {
         ZStack {
@@ -62,20 +67,59 @@ struct TravelView: View {
                     .background(Color.black.opacity(0.05))
                     .cornerRadius(10)
                 Button("Track") {
-                    trackTavel()
+                    addTravelItem()
                 }
                 .foregroundColor(.white)
                 .frame(width: 300, height: 50)
                 .background(Color.green)
                 .cornerRadius(10)
+                .disabled(Destination == "" && Year == "" && TravelDate != "")
+                .alert("Missing Field Entries",isPresented: $showAlert) {
+                    Button("Ok",role: .cancel) {
+                        //you could add more code here if you wanted to
+                    }
+                }
                     
             } //VStack
+            .navigationBarTitle("Trip Entry", displayMode: .inline)
         }//ZStack
       
     }
-    func trackTavel() {
-        var _Travel = Travel(Destination: Destination, Year: Year, TravelDate: TravelDate, Airline: Airline, BookingCode: BookingCode, Hotel: Hotel, APCode: APCode)
-        print(_Travel)
+    func addTravelItem() {
+        if Destination != ""
+           && Year != ""
+           && TravelDate != ""
+           && Airline != ""
+           && BookingCode != ""
+           && Hotel != ""
+           && APCode != "" {
+            
+            do {
+                let TDNewItem = TravelDetailItem(Destination: Destination, Year: Year, TravelDate: TravelDate, Airline: Airline, BookingCode: BookingCode, Hotel: Hotel, APCode: APCode)
+                //add item to Realm
+                $TDItems.append(TDNewItem)
+                clearRecord()
+                print("Succesfully Wrote Record to Realm Atlas..")
+            }
+            catch {
+                print("Failed to write record  to Realm Atlas Dataabase:  \(error.localizedDescription)")
+            }
+           
+        }
+        else {
+            showAlert.toggle()
+        }
+       
+    }
+    
+    func clearRecord(){
+        Destination = ""
+        Year  = ""
+        TravelDate  = ""
+        Airline  = ""
+        BookingCode  = ""
+        Hotel  = ""
+        APCode  = ""
     }
 }
 
