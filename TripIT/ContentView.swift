@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var wrongUsername = 0
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
+    @State private var showMainMenu = false
     
     //real connect
     @State private var realmDBUserID = "";
@@ -72,6 +73,10 @@ struct ContentView: View {
                     NavigationLink(destination: Text("You are logged in \(username)"),isActive: $showingLoginScreen) {
                         EmptyView();
                     }
+                    
+                    NavigationLink(destination: Menu(),isActive: $showMainMenu) {
+                        EmptyView();
+                    }
                            
                 }//VStack
             }  //ZStack 
@@ -102,6 +107,9 @@ struct ContentView: View {
                 let user = try await realmApp.login(credentials: .anonymous);
                 realmDBUserID = user.id;
                 print("Realm UserID: \(realmDBUserID)")
+                if realmDBUserID != "" {
+                    showMainMenu = true
+                }
             } catch {
                 print("Failed to login to MongodB Realm :  \(error.localizedDescription)")
                 realmDBUserID = "Failed to Connect"
