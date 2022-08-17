@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct Menu: View {
+    
     var body: some View {
-        
             ZStack {
                 Color.white
                     .ignoresSafeArea()
                 VStack{
                     
-                    NavigationLink(destination: TravelView())
+                    NavigationLink(destination: TravelView().environment(\.realmConfiguration,(realmApp.currentUser?.configuration(partitionValue: "BookingCode"))!))
                     {
                         Text("Enter Travel Details")
                             .frame(width: 280, height: 50)

@@ -109,18 +109,32 @@ struct ContentView: View {
     }
     
     func connectToRealm() {
-        print("In connectToRealm Function")
+        
+        /*
+        realmApp.login(credentials: Credentials.anonymous) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print("Login failed \(error.localizedDescription)")
+                case .success(let user):
+                    print("logged in as \(user) succeded!!!")
+                    //onLogin()
+                    showMainMenu = true
+                }
+            }
+            
+        }
+        */
+      
+        
+        
         Task {
+           
             do {
                 let user = try await realmApp.login(credentials: .anonymous);
                 realmDBUserID = user.id;
-                user.flexibleSyncConfiguration(initialSubscriptions: {subs in
-                    if let _ = subs.first(named: "all-tasks") {
-                        return
-                    } else {
-                        //subs.append(QuerySubscription<Task<<#Success: Sendable#>, <#Failure: Error#>>>(name:"all-tasks"))
-                    }
-                }, rerunOnOpen: false)
+               
+                
                 print("Realm UserID: \(realmDBUserID)")
                 
                 if realmDBUserID != "" {
@@ -132,6 +146,28 @@ struct ContentView: View {
             }
         }
         
+    }
+}
+
+func onLogin()
+{
+    
+    let _ = try!Realm()
+    
+    let user = realmApp.currentUser!
+    let partitionValue = "BookingCode"
+    let configuration = user.configuration(partitionValue: partitionValue)
+   
+    
+    Realm.asyncOpen(configuration: configuration) {
+        (result) in
+        switch result {
+        case.failure(let error) :
+            print("Failed to open realm: \(error.localizedDescription)")
+        case .success(_):
+            print("Realm Opened")
+            
+        }
     }
 }
 
