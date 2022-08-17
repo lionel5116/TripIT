@@ -8,7 +8,7 @@
 import SwiftUI
 import RealmSwift
 
-let realmApp = RealmSwift.App(id:"tripit-hhgzq")
+let realmApp = RealmSwift.App(id:"triptracker-kiwjn")
 
 @main
 struct TripITApp: SwiftUI.App {

@@ -10,6 +10,7 @@ import RealmSwift
 
 class TravelDetailItem: Object, ObjectKeyIdentifiable{
     @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var owner_id : String
     @Persisted var Destination : String
     @Persisted var Year : String
     @Persisted var TravelDate : String
@@ -19,7 +20,8 @@ class TravelDetailItem: Object, ObjectKeyIdentifiable{
     @Persisted var APCode : String
     @Persisted var timestamp = Date()
     
-    convenience init(Destination: String,
+    convenience init(owner_id : String,
+                     Destination: String,
                      Year:String,
                      TravelDate:String,
                      Airline:String,
@@ -28,6 +30,7 @@ class TravelDetailItem: Object, ObjectKeyIdentifiable{
                      APCode: String
     ) {
         self.init()
+        self.owner_id = owner_id
         self.Destination = Destination
         self.Year = Year
         self.TravelDate = TravelDate

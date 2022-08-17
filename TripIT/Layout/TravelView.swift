@@ -148,7 +148,16 @@ struct TravelView: View {
                     }
                 }
                  */
-                let TDNewItem = TravelDetailItem(Destination: Destination, Year: Year, TravelDate: TravelDate, Airline: Airline, BookingCode: BookingCode, Hotel: Hotel, APCode: APCode)
+                let uuid = UUID().uuidString
+                
+                let TDNewItem = TravelDetailItem(owner_id:uuid,
+                                                 Destination: Destination,
+                                                 Year: Year,
+                                                 TravelDate: TravelDate,
+                                                 Airline: Airline,
+                                                 BookingCode: BookingCode,
+                                                 Hotel: Hotel,
+                                                 APCode: APCode)
                 print(TDNewItem)
                 $TDItems.append(TDNewItem)
                 clearRecord()
