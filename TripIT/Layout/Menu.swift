@@ -15,7 +15,8 @@ struct Menu: View {
                     .ignoresSafeArea()
                 VStack{
                     
-                    NavigationLink(destination: TravelView().environment(\.realmConfiguration,(realmApp.currentUser?.configuration(partitionValue: "owner_id"))!))
+                    //environment(\.realmConfiguration,(realmApp.currentUser?.configuration(partitionValue: "owner_id"))!)
+                    NavigationLink(destination:TravelView())
                     {
                         Text("Enter Travel Details")
                             .frame(width: 280, height: 50)

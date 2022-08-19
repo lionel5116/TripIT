@@ -21,6 +21,8 @@ struct TravelView: View {
     @State private var Hotel  = ""
     @State private var APCode  = ""
     
+    //dismissing the keyboard
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
       
@@ -88,27 +90,13 @@ struct TravelView: View {
         }//ZStack
         
     }
+    
+    enum MyError: Error{
+        case runtimeError(String)
+    }
+    
     func addTravelItem() {
-        
-        /*
-        let realm = try!Realm()
-        
-       
-        let user = realmApp.currentUser!
-        let partitionValue = "BookingCode"
-        let configuration = user.configuration(partitionValue: partitionValue)
-        Realm.asyncOpen(configuration: configuration) {
-            (result) in
-            switch result {
-            case.failure(let error) :
-                print("Failed to open realm: \(error.localizedDescription)")
-            case .success(let realm):
-                print("Realm Opened")
-            }
-        }
-        */
-        
-        if Destination != ""
+       if Destination != ""
            && Year != ""
            && TravelDate != ""
            && Airline != ""
@@ -117,37 +105,6 @@ struct TravelView: View {
            && APCode != "" {
             
             do {
-                
-                /*
-                let _ = try!Realm()
-                
-                let user = realmApp.currentUser!
-                let partitionValue = "BookingCode"
-                let configuration = user.configuration(partitionValue: partitionValue)
-               
-                
-                Realm.asyncOpen(configuration: configuration) {
-                    (result) in
-                    switch result {
-                    case.failure(let error) :
-                        print("Failed to open realm: \(error.localizedDescription)")
-                    case .success(_):
-                        print("Realm Opened")
-                        let TDNewItem = TravelDetailItem(Destination: Destination, Year: Year, TravelDate: TravelDate, Airline: Airline, BookingCode: BookingCode, Hotel: Hotel, APCode: APCode)
-                        print(TDNewItem)
-                        //add item to Realm
-                        /*
-                        try! realm.write {
-                            realm.add(TDNewItem)
-                        }
-                         */
-                        $TDItems.append(TDNewItem)
-                        clearRecord()
-                        print("Succesfully Wrote Record to Realm Atlas..")
-                        
-                    }
-                }
-                 */
                 let uuid = UUID().uuidString
                 
                 let TDNewItem = TravelDetailItem(owner_id:uuid,
@@ -159,13 +116,19 @@ struct TravelView: View {
                                                  Hotel: Hotel,
                                                  APCode: APCode)
                 print(TDNewItem)
+                
+                guard Destination != "" else {
+                    throw MyError.runtimeError("Need a Destination at least to save a record")
+                }
                 $TDItems.append(TDNewItem)
+                dismiss()
                 clearRecord()
-                print("Succesfully Wrote Record to Realm Atlas..")
+                print("Succesfully Wrote Record to Realm Local..")
               
             }
             catch {
-                print("Failed to write record  to Realm Atlas Dataabase:  \(error.localizedDescription)")
+                onFailure()
+                print("Failed to write record  to Realm Local:  \(error.localizedDescription)")
             }
            
         }
@@ -173,6 +136,10 @@ struct TravelView: View {
             showAlert.toggle()
         }
        
+    }
+    
+    func onFailure(){
+        
     }
     
     func clearRecord(){
@@ -191,3 +158,58 @@ struct TravelView_Previews: PreviewProvider {
         TravelView()
     }
 }
+
+
+
+ /*
+ let _ = try!Realm()
+ 
+ let user = realmApp.currentUser!
+ let partitionValue = "BookingCode"
+ let configuration = user.configuration(partitionValue: partitionValue)
+
+ 
+ Realm.asyncOpen(configuration: configuration) {
+     (result) in
+     switch result {
+     case.failure(let error) :
+         print("Failed to open realm: \(error.localizedDescription)")
+     case .success(_):
+         print("Realm Opened")
+         let TDNewItem = TravelDetailItem(Destination: Destination, Year: Year, TravelDate: TravelDate, Airline: Airline, BookingCode: BookingCode, Hotel: Hotel, APCode: APCode)
+         print(TDNewItem)
+         //add item to Realm
+         /*
+         try! realm.write {
+             realm.add(TDNewItem)
+         }
+          */
+         $TDItems.append(TDNewItem)
+         clearRecord()
+         print("Succesfully Wrote Record to Realm Atlas..")
+         
+     }
+ }
+  
+  
+  
+  let realm = try!Realm()
+  
+ 
+  let user = realmApp.currentUser!
+  let partitionValue = "BookingCode"
+  let configuration = user.configuration(partitionValue: partitionValue)
+  Realm.asyncOpen(configuration: configuration) {
+      (result) in
+      switch result {
+      case.failure(let error) :
+          print("Failed to open realm: \(error.localizedDescription)")
+      case .success(let realm):
+          print("Realm Opened")
+      }
+  }
+  */
+  
+ 
+ 
+ 

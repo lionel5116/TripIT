@@ -61,7 +61,8 @@ struct ContentView: View {
                     .cornerRadius(10)
                     
                     Button("Realm Connect") {
-                        connectToRealm()
+                        //connectToRealm()
+                        print("Temporarily Diabling this for now ...")
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
@@ -98,7 +99,8 @@ struct ContentView: View {
             wrongUsername = 0
             if password.lowercased() == "5116" {
                 wrongPassword = 0
-                showingLoginScreen = true
+                //showingLoginScreen = true
+                showMainMenu = true //activate navigation
             }
             else {
                 wrongPassword = 2
@@ -110,24 +112,7 @@ struct ContentView: View {
     
     func connectToRealm() {
         
-        /*
-        realmApp.login(credentials: Credentials.anonymous) { (result) in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print("Login failed \(error.localizedDescription)")
-                case .success(let user):
-                    print("logged in as \(user) succeded!!!")
-                    //onLogin()
-                    showMainMenu = true
-                }
-            }
-            
-        }
-        */
-      
-        
-        
+       /*
         Task {
            
             do {
@@ -145,31 +130,10 @@ struct ContentView: View {
                 realmDBUserID = "Failed to Connect"
             }
         }
-        
+        */
     }
 }
 
-func onLogin()
-{
-    
-    let _ = try!Realm()
-    
-    let user = realmApp.currentUser!
-    let partitionValue = "BookingCode"
-    let configuration = user.configuration(partitionValue: partitionValue)
-   
-    
-    Realm.asyncOpen(configuration: configuration) {
-        (result) in
-        switch result {
-        case.failure(let error) :
-            print("Failed to open realm: \(error.localizedDescription)")
-        case .success(_):
-            print("Realm Opened")
-            
-        }
-    }
-}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
