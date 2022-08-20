@@ -33,14 +33,18 @@ struct TravelDetailEditView: View {
         self.itemToEdit = itemToEdit
         //print(self.itemToEdit!._id)
         
-        if let itemToEdit = itemToEdit {
-            _Destination = State(initialValue: itemToEdit.Destination)
-            _Year = State(initialValue: itemToEdit.Year)
-            _TravelDate = State(initialValue: itemToEdit.TravelDate)
-            _Airline = State(initialValue: itemToEdit.Airline)
-            _BookingCode = State(initialValue: itemToEdit.BookingCode)
-            _Hotel = State(initialValue: itemToEdit.Hotel)
-            _APCode = State(initialValue: itemToEdit.APCode)
+        //if let = optional binding, it's a test to see if itemToEdit passed in the constructor has a value or not
+        //if if does, bind it to itemToEdit on the left side of equation if let itemToEdit
+        if let _itemToEdit = itemToEdit {
+             //the _Destination allows us to initialize our state variables in our constructor (property wrappers use the _ in the constructor
+            //as storage for the @State properties
+            _Destination = State(initialValue: _itemToEdit.Destination)
+            _Year = State(initialValue: _itemToEdit.Year)
+            _TravelDate = State(initialValue: _itemToEdit.TravelDate)
+            _Airline = State(initialValue: _itemToEdit.Airline)
+            _BookingCode = State(initialValue: _itemToEdit.BookingCode)
+            _Hotel = State(initialValue: _itemToEdit.Hotel)
+            _APCode = State(initialValue: _itemToEdit.APCode)
         }
     }
     

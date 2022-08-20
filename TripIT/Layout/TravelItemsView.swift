@@ -10,10 +10,11 @@ import RealmSwift
 
 struct TravelItemsView: View {
     
-    //Realm Object - This is our base TravelDetailItem Model (Entering New Travel Detail Items)
+    //Reference to objects that exist in our RealmDatabase
     @ObservedResults(TravelDetailItem.self) var TDItems
     
     //Make sure have this is as "ObservedRealmObject and not ObservedObject or you will get an Frozen Error
+    //@ObservedRealmObject .. when this view is referenced, it needs an object passed in
     @ObservedRealmObject var travelDetailItem : TravelDetailItem
     
     @State private var isPresented: Bool = false

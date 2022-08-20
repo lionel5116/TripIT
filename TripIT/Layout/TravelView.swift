@@ -9,13 +9,10 @@ import SwiftUI
 import RealmSwift
 
 struct TravelView: View {
+    
+    //@ObservedResults does not need an object passed in (@ObservedRealmObject does)
     @ObservedResults(TravelDetailItem.self) var TDItems
-    
-    //Make sure have this is as "ObservedRealmObject and not ObservedObject or you will get an Frozen Error
-    //@ObservedRealmObject var travelDetailItem : TravelDetailItem
-    //var itemToEdit: TravelDetailItem?
-    
-    
+
     @State private var showAlert = false
     
     @State private var Destination = ""
@@ -28,23 +25,6 @@ struct TravelView: View {
     
     //dismissing the keyboard
     @Environment(\.dismiss) private var dismiss
-    
-    /*
-    init(travelDetailItem:TravelDetailItem,itemToEdit:TravelDetailItem? = nil) {
-        self.travelDetailItem = travelDetailItem
-        self.itemToEdit = itemToEdit
-        
-        if let itemToEdit = itemToEdit {
-            _Destination = State(initialValue: itemToEdit.Destination)
-            _Year = State(initialValue: itemToEdit.Year)
-            _TravelDate = State(initialValue: itemToEdit.TravelDate)
-            _Airline = State(initialValue: itemToEdit.Airline)
-            _BookingCode = State(initialValue: itemToEdit.BookingCode)
-            _Hotel = State(initialValue: itemToEdit.Hotel)
-            _APCode = State(initialValue: itemToEdit.APCode)
-        }
-    }
-     */
     
     var body: some View {
       
