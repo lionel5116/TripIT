@@ -16,9 +16,9 @@ struct Menu: View {
                 VStack{
                     
                     //environment(\.realmConfiguration,(realmApp.currentUser?.configuration(partitionValue: "owner_id"))!)
-                    NavigationLink(destination:TravelView())
+                    NavigationLink(destination:TravelItemsView())
                     {
-                        Text("Enter Travel Details")
+                        Text("Travel Items")
                             .frame(width: 280, height: 50)
                             .font(.system(size:20,weight: .bold,design: .default))
                             .background(Color.green)
