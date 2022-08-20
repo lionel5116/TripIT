@@ -20,6 +20,7 @@
 		15CB6DAB28A9961B0096C4BB /* TripITTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB6DAA28A9961B0096C4BB /* TripITTests.swift */; };
 		15CB6DB528A9961B0096C4BB /* TripITUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB6DB428A9961B0096C4BB /* TripITUITests.swift */; };
 		15CB6DB728A9961B0096C4BB /* TripITUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB6DB628A9961B0096C4BB /* TripITUITestsLaunchTests.swift */; };
+		15DE459728B081CF009EA8D7 /* TravelDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DE459628B081CF009EA8D7 /* TravelDetailEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		15CB6DB028A9961B0096C4BB /* TripITUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TripITUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15CB6DB428A9961B0096C4BB /* TripITUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripITUITests.swift; sourceTree = "<group>"; };
 		15CB6DB628A9961B0096C4BB /* TripITUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripITUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		15DE459628B081CF009EA8D7 /* TravelDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDetailEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				1534B40D28AB1B89009B7BC1 /* Menu.swift */,
 				1534B40F28AB1E27009B7BC1 /* TravelView.swift */,
 				154EDF7728B053D300BFD81A /* TravelItemsView.swift */,
+				15DE459628B081CF009EA8D7 /* TravelDetailEditView.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				154EDF7828B053D300BFD81A /* TravelItemsView.swift in Sources */,
+				15DE459728B081CF009EA8D7 /* TravelDetailEditView.swift in Sources */,
 				15CB3D7328ABFC0B00E121C3 /* TravelDetailItem.swift in Sources */,
 				15CB6D9C28A9961A0096C4BB /* ContentView.swift in Sources */,
 				1534B40E28AB1B89009B7BC1 /* Menu.swift in Sources */,

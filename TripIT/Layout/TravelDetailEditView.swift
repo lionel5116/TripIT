@@ -1,19 +1,18 @@
 //
-//  TravelView.swift
+//  TravelDetailEditView.swift
 //  TripIT
 //
-//  Created by lionel jones on 8/15/22.
+//  Created by lionel jones on 8/19/22.
 //
 
 import SwiftUI
 import RealmSwift
 
-struct TravelView: View {
-    @ObservedResults(TravelDetailItem.self) var TDItems
+struct TravelDetailEditView: View {
     
     //Make sure have this is as "ObservedRealmObject and not ObservedObject or you will get an Frozen Error
-    //@ObservedRealmObject var travelDetailItem : TravelDetailItem
-    //var itemToEdit: TravelDetailItem?
+    @ObservedRealmObject var travelDetailItem : TravelDetailItem
+    var itemToEdit: TravelDetailItem?
     
     
     @State private var showAlert = false
@@ -29,10 +28,10 @@ struct TravelView: View {
     //dismissing the keyboard
     @Environment(\.dismiss) private var dismiss
     
-    /*
     init(travelDetailItem:TravelDetailItem,itemToEdit:TravelDetailItem? = nil) {
         self.travelDetailItem = travelDetailItem
         self.itemToEdit = itemToEdit
+        //print(self.itemToEdit!._id)
         
         if let itemToEdit = itemToEdit {
             _Destination = State(initialValue: itemToEdit.Destination)
@@ -44,11 +43,8 @@ struct TravelView: View {
             _APCode = State(initialValue: itemToEdit.APCode)
         }
     }
-     */
     
     var body: some View {
-      
-       
         ZStack {
             Color.white
                 .ignoresSafeArea()
@@ -93,8 +89,8 @@ struct TravelView: View {
                     .frame(width: 300, height: 50)
                     .background(Color.black.opacity(0.05))
                     .cornerRadius(10)
-                Button("Track") {
-                    addTravelItem()
+                Button("Update") {
+                    editTravelItem()
                 }
                 .foregroundColor(.white)
                 .frame(width: 300, height: 50)
@@ -108,131 +104,44 @@ struct TravelView: View {
                 }
                     
             } //VStack
-            .navigationBarTitle("Trip Entry", displayMode: .inline)
+            .navigationBarTitle("Edit Trip Details ", displayMode: .inline)
         }//ZStack
-        
     }
     
     enum MyError: Error{
         case runtimeError(String)
     }
-    
-    func addTravelItem() {
-       if Destination != ""
-           && Year != ""
-           && TravelDate != ""
-           && Airline != ""
-           && BookingCode != ""
-           && Hotel != ""
-           && APCode != "" {
-            
+
+    private func editTravelItem(){
+        if let itemToEdit = itemToEdit {
             do {
-                let uuid = UUID().uuidString
-                
-                let TDNewItem = TravelDetailItem(owner_id:uuid,
-                                                 Destination: Destination,
-                                                 Year: Year,
-                                                 TravelDate: TravelDate,
-                                                 Airline: Airline,
-                                                 BookingCode: BookingCode,
-                                                 Hotel: Hotel,
-                                                 APCode: APCode)
-                print(TDNewItem)
-                
-                guard Destination != "" else {
-                    throw MyError.runtimeError("Need a Destination at least to save a record")
+                let realm = try Realm()
+                guard let objectToUpdate = realm.object(ofType: TravelDetailItem.self, forPrimaryKey: itemToEdit._id) else {return}
+                try realm.write {
+                    objectToUpdate.Destination = Destination
+                    objectToUpdate.Year = Year
+                    objectToUpdate.TravelDate = TravelDate
+                    objectToUpdate.Airline = Airline
+                    objectToUpdate.BookingCode = BookingCode
+                    objectToUpdate.Hotel = Hotel
+                    objectToUpdate.APCode = APCode
                 }
-                $TDItems.append(TDNewItem)
                 dismiss()
-                clearRecord()
-                print("Succesfully Wrote Record to Realm Local..")
-              
             }
             catch {
-                onFailure()
-                print("Failed to write record  to Realm Local:  \(error.localizedDescription)")
+                print(error)
             }
-           
         }
-        else {
-            showAlert.toggle()
-        }
-       
     }
-    
-    func onFailure(){
-        
-    }
-    
-    func clearRecord(){
-        Destination = ""
-        Year  = ""
-        TravelDate  = ""
-        Airline  = ""
-        BookingCode  = ""
-        Hotel  = ""
-        APCode  = ""
-    }
-}
 
-/*
-struct TravelView_Previews: PreviewProvider {
+    
+} //struct TravelDetailEditView: View {
+
+
+
+struct TravelDetailEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TravelView()
+        TravelDetailEditView(travelDetailItem:TravelDetailItem())
     }
 }
-*/
-
-
- /*
- let _ = try!Realm()
- 
- let user = realmApp.currentUser!
- let partitionValue = "BookingCode"
- let configuration = user.configuration(partitionValue: partitionValue)
-
- 
- Realm.asyncOpen(configuration: configuration) {
-     (result) in
-     switch result {
-     case.failure(let error) :
-         print("Failed to open realm: \(error.localizedDescription)")
-     case .success(_):
-         print("Realm Opened")
-         let TDNewItem = TravelDetailItem(Destination: Destination, Year: Year, TravelDate: TravelDate, Airline: Airline, BookingCode: BookingCode, Hotel: Hotel, APCode: APCode)
-         print(TDNewItem)
-         //add item to Realm
-         /*
-         try! realm.write {
-             realm.add(TDNewItem)
-         }
-          */
-         $TDItems.append(TDNewItem)
-         clearRecord()
-         print("Succesfully Wrote Record to Realm Atlas..")
-         
-     }
- }
-  
-  
-  
-  let realm = try!Realm()
-  
- 
-  let user = realmApp.currentUser!
-  let partitionValue = "BookingCode"
-  let configuration = user.configuration(partitionValue: partitionValue)
-  Realm.asyncOpen(configuration: configuration) {
-      (result) in
-      switch result {
-      case.failure(let error) :
-          print("Failed to open realm: \(error.localizedDescription)")
-      case .success(let realm):
-          print("Realm Opened")
-      }
-  }
-  */
-  
- 
- 
  
