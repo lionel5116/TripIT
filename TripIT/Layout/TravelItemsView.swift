@@ -23,22 +23,19 @@ struct TravelItemsView: View {
             
             VStack {
                 List {
-                    
-                   
-                    
                     ForEach(TDItems, id: \.id) {
                         TDItem in
                         
                         NavigationLink {
                             TravelDetailEditView(travelDetailItem: travelDetailItem,itemToEdit: TDItem)
                         } label: {
-                            Text("Edit Record")
-                                .foregroundColor(.red)
+                            Text(TDItem.BookingCode)
+                                .foregroundColor(.green)
                         }
                         
                         Text(TDItem.Destination)
                         Text(TDItem.TravelDate)
-                        Text(TDItem.BookingCode).opacity(0.4)
+                        Text(TDItem.APCode).opacity(0.4)
                         
                     }.onDelete(perform: $TDItems.remove) //foreach
                 }//List
