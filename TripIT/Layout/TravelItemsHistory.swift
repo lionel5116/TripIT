@@ -47,10 +47,11 @@ struct TravelItemsHistory: View {
                 //print("responseJSON: \(responseJSON)")
             }
             */
-            
+            var _arrTravelDetailHistory : [TravelDetailHistory]
             //you use the [TravelDetailHistory] because you want to store in an array
-            let _travelItems = try! JSONDecoder().decode([TravelDetailHistory].self, from: data)
-            print(_travelItems)
+            //the issue is that you are getting back a dictionary as oppossed to an array
+            _arrTravelDetailHistory = try! JSONDecoder().decode([TravelDetailHistory].self, from: data)
+            print(_arrTravelDetailHistory)
             //let jsondata = try! JSONSerialization.jsonObject(with: data, options: [])
             
         }
