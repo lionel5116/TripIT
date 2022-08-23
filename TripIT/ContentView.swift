@@ -52,7 +52,7 @@ struct ContentView: View {
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongPassword))
                     
-                    Button("Login") {
+                    Button("Feel the Power*") {
                         authenticateUser(username: username, password: password)
                     }
                     .foregroundColor(.white)
@@ -90,7 +90,7 @@ struct ContentView: View {
             
        } //NavigationView
        .navigationBarHidden(true)
-       .navigationBarTitle("TripIT", displayMode: .inline)
+       .navigationBarTitle("Feel the Power", displayMode: .inline)
     }//View (body)
     
     func authenticateUser(username: String, password: String) {
