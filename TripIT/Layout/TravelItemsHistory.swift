@@ -15,6 +15,9 @@ struct TravelItemsHistory: View {
     
     
     var body: some View {
+        
+        
+        
         VStack {
             Button("Fetch Travel History") {
                 fetchTravelHistoryItemsFromMongoDBAtlas()
@@ -23,13 +26,28 @@ struct TravelItemsHistory: View {
             .frame(width: 300, height: 50)
             .background(Color.green)
             .cornerRadius(10)
+            List {
+                ForEach(arrTDdata, id: \._id) {
+                    TDItem in
+                    Text(TDItem.Destination)
+                    Text(TDItem.ItineraryFlght)
+                    Text(TDItem.TravelDate)
+                    Text(TDItem.BookingCode).opacity(0.4)
+                    
+                }
+            }
+            
         }
+    }
+    
+    enum MyError: Error{
+        case runtimeError(String)
     }
     
     func fetchTravelHistoryItemsFromMongoDBAtlas() {
         let body: [String: Any]  = ["BookingCode": "","Airline": "Spirit","APCode": "","Status": "","Year": "","SearchType": "Airline"]
-       // guard let _url = URL(string:"https://vast-scrubland-03341.herokuapp.com/api/travel/searchTravelRecord") else {return}
-        guard let _url = URL(string:"http://localhost:5001/api/travel/searchTravelRecordJSON") else {return}
+        guard let _url = URL(string:"https://vast-scrubland-03341.herokuapp.com/api/travel/searchTravelRecord") else {return}
+       // guard let _url = URL(string:"http://localhost:5001/api/travel/searchTravelRecordJSON") else {return}
     
         
         var request = URLRequest(url: _url)
@@ -40,7 +58,7 @@ struct TravelItemsHistory: View {
         
         URLSession.shared.dataTask(with:request) {
             (data, response, error) in
-            print("-----> error: \(String(describing: error))")
+            //print("-----> error: \(String(describing: error))")
             
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
@@ -48,58 +66,50 @@ struct TravelItemsHistory: View {
             }
             
             
-            
+            /*
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
                print("responseJSON: \(responseJSON)")
             }
-            
-            
-            //let userInfo = results[0]["userInfo"] as! [String: Any]
-            var _arrTravelDetailHistory = try! JSONDecoder().decode(Response.self, from: data)
-           //print(_arrTravelDetailHistory)
-
-            
-            //var _arrTravelDetailHistory : [TravelDetailHistory]
-            //you use the [TravelDetailHistory] because you want to store in an array
-            //the issue is that you are getting back a dictionary as oppossed to an array
-            //let arrayTDItems = data.travel
-            //let _arrTravelDetailHistory = try! JSONDecoder().decode([TravelDetailHistory].self, from: data)
-            //self.arrTDdata = _arrTravelDetailHistory
-            //print(_arrTravelDetailHistory)
-            //let jsondata = try! JSONSerialization.jsonObject(with: data, options: [])
-            
-            /*BELOW DOES NOT WORK!!, does not decode the json properly
-            let json = try! JSONSerialization.jsonObject(with: data)
-            let jsonDict = json as! [String: Any]
-            let results = jsonDict["travelRecord"] as! [[String: Any]]
-            
-            var oDetails: TravelDetailHistory
-            for tdItem in results{
-                print(tdItem)
-                    
-                    oDetails.Destination= tdItem["Destination"] as! [String: Any]
-                    oDetails.Year= tdItem.Year
-                    oDetails.TravelDate= tdItem.TravelDate
-                    oDetails.Airline= tdItem.Airline
-                    oDetails.Hotel= tdItem.Hotel
-                    oDetails.BookingCode= tdItem.BookingCode
-                    oDetails.APCode= tdItem.APCode
-                    oDetails.ItineraryFlght= tdItem.ItineraryFlght
-                    oDetails.ItineraryHotel= tdItem.ItineraryHotel
-                    oDetails.Status= tdItem.Status
-                    oDetails.FlightCost= tdItem.FlightCost
-                    oDetails.HotelCost= tdItem.HotelCost
-                    oDetails.GirlCost= tdItem.GirlCost
-                    oDetails.TotalCost= tdItem.TotalCost
-                    oDetails.Rating= tdItem.Rating
-                    oDetails.Notes= tdItem.Notes
-                }
              */
             
+            
+            do  {
+                
+                let travelData = try! JSONDecoder().decode(TDRoot.self, from: data)
+                
+                //below is when testing with localhost:5001
+                //let tdHistoryItems = travelData.travelRecord
+                
+                //this is for Atlas
+                let tdHistoryItems = travelData.travel
+               
+                var oDetails: TravelDetailHistory
+                arrTDdata = []
+                for tdHistItem in tdHistoryItems {
+                    oDetails = TravelDetailHistory(_id:tdHistItem._id,Destination: tdHistItem.Destination, Year: tdHistItem.Year, TravelDate: tdHistItem.TravelDate, Airline: tdHistItem.Airline, Hotel: tdHistItem.Hotel, BookingCode: tdHistItem.BookingCode, APCode: tdHistItem.APCode, ItineraryFlght: tdHistItem.ItineraryFlght, ItineraryHotel: tdHistItem.ItineraryHotel, Status: tdHistItem.Status, FlightCost: tdHistItem.FlightCost, HotelCost: tdHistItem.HotelCost, GirlCost: tdHistItem.GirlCost, TotalCost: tdHistItem.TotalCost, Rating: tdHistItem.Rating, Notes: tdHistItem.Notes)
+                   
+                    arrTDdata.append(oDetails)
+                  
+                }
+                //print("Printing Array of TravelDetailHistory Items....")
+                //print(arrTDdata)
+                
+                if data != data {
+                    throw MyError.runtimeError("No data returned")
+                }
+                
+            }
+            catch {
+                let error = error
+                print(error.localizedDescription)
+            }
+            
+           
         }
         .resume()
     }
+   
 }
 
 /*
