@@ -126,7 +126,10 @@ struct SearchTravel: View {
                 return
             }
             
-            
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+               print("responseJSON: \(responseJSON)")
+            }
             
             do  {
                 
