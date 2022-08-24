@@ -102,7 +102,7 @@ struct SearchTravel: View {
             default:
             print("Nothing selected")
         }
-        
+        //return
         
         //body = ["BookingCode": "","Airline": "Spirit","APCode": "","Status": "","Year": "","SearchType": "Airline"]
         
@@ -140,7 +140,24 @@ struct SearchTravel: View {
                 var oDetails: TravelDetailHistory
                 _arrTDdata = []
                 for tdHistItem in tdHistoryItems {
-                    oDetails = TravelDetailHistory(_id:tdHistItem._id,Destination: tdHistItem.Destination, Year: tdHistItem.Year, TravelDate: tdHistItem.TravelDate, Airline: tdHistItem.Airline, Hotel: tdHistItem.Hotel, BookingCode: tdHistItem.BookingCode, APCode: tdHistItem.APCode, ItineraryFlght: tdHistItem.ItineraryFlght, ItineraryHotel: tdHistItem.ItineraryHotel, Status: tdHistItem.Status, FlightCost: tdHistItem.FlightCost, HotelCost: tdHistItem.HotelCost, GirlCost: tdHistItem.GirlCost, TotalCost: tdHistItem.TotalCost, Rating: tdHistItem.Rating, Notes: tdHistItem.Notes)
+                    oDetails = TravelDetailHistory(
+                                _id:tdHistItem._id,
+                                Destination: tdHistItem.Destination,
+                                Year: tdHistItem.Year,
+                                TravelDate: tdHistItem.TravelDate,
+                                Airline: tdHistItem.Airline,
+                                Hotel: tdHistItem.Hotel,
+                                BookingCode: tdHistItem.BookingCode,
+                                APCode: tdHistItem.APCode,
+                                ItineraryFlght: tdHistItem.ItineraryFlght,
+                                ItineraryHotel: tdHistItem.ItineraryHotel,
+                                Status: tdHistItem.Status,
+                                FlightCost: tdHistItem.FlightCost != nil ? tdHistItem.FlightCost : 0.0,
+                                HotelCost: tdHistItem.HotelCost != nil ? tdHistItem.HotelCost : 0.0,
+                                GirlCost: tdHistItem.GirlCost != nil ? tdHistItem.GirlCost : 0.0,
+                                TotalCost: tdHistItem.TotalCost  != nil ? tdHistItem.TotalCost : 0.0,
+                                Rating: tdHistItem.Rating,
+                                Notes: tdHistItem.Notes)
                    
                     _arrTDdata.append(oDetails)
                   

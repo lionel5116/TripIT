@@ -18,10 +18,10 @@ struct TravelDetailHistory: Codable{
     var ItineraryFlght:String
     var ItineraryHotel:String
     var Status:String
-    var FlightCost:Double
-    var HotelCost:Double
-    var GirlCost:Double
-    var TotalCost:Double
+    var FlightCost:Double?
+    var HotelCost:Double?
+    var GirlCost:Double?
+    var TotalCost:Double?
     var Rating:String
     var Notes:String
     
@@ -37,10 +37,10 @@ struct TravelDetailHistory: Codable{
             ItineraryFlght:String,
             ItineraryHotel:String,
             Status:String,
-            FlightCost:Double,
-            HotelCost:Double,
-            GirlCost:Double,
-            TotalCost:Double,
+            FlightCost:Double?,
+            HotelCost:Double?,
+            GirlCost:Double?,
+            TotalCost:Double?,
             Rating:String,
             Notes:String
     ) {
