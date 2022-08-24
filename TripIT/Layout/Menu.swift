@@ -34,6 +34,14 @@ struct Menu: View {
                             .foregroundColor(.white)
                             .cornerRadius(20)
                    }
+                    NavigationLink(destination: SearchTravel()) {
+                        Text("Search Travel")
+                            .frame(width: 280, height: 50)
+                            .font(.system(size:20,weight: .bold,design: .default))
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(20)
+                   }
                     
                     NavigationLink(destination: ContentView()) {
                         Text("Return to Main")

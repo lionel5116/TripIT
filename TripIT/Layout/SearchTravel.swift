@@ -1,0 +1,170 @@
+//
+//  SearchTravel.swift
+//  TripIT
+//
+//  Created by lionel jones on 8/24/22.
+//
+
+import SwiftUI
+
+struct SearchTravel: View {
+    
+    @State var _arrTDdata: [TravelDetailHistory] = []
+    
+    private let airlines: [String] = [
+       "American",
+       "Spirit",
+       "United",
+       "Copa",
+       "Jet Blue",
+       "Viva"
+    ]
+    
+    private let searchTypes: [String] = [
+       "All",
+       "Airline",
+       "Year"
+    ]
+    
+    @State private var year: String = ""
+    @State private var selectedAirline: String  = ""
+    @State private var searchType: String  = ""
+    
+    @State private var showTravelSearchResultsView = false
+    
+    
+    
+    var body: some View {
+        
+        ZStack {
+            Color.white
+                .ignoresSafeArea()
+            VStack {
+                
+                Group {
+                    Text("Selected: \(searchType)")
+                    Picker("Select a Search Type",
+                           selection: $searchType) {
+                        ForEach(searchTypes, id: \.self) {
+                            sType in
+                            Text(sType)
+                        }
+                    }.pickerStyle(.segmented)
+                        .padding()
+                           
+                    
+                    Text("Airline: \(selectedAirline)")
+                    Picker("Select an Airline",
+                           selection: $selectedAirline) {
+                        ForEach(airlines, id: \.self) {
+                            _airline in
+                            Text(_airline)
+                        }
+                    }.pickerStyle(.wheel)
+                    TextField("Year", text: $year)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(10)
+                }//Group
+                Spacer()
+                Button("Search") {
+                    searchTravel()
+                }
+                .foregroundColor(.white)
+                .frame(width: 300, height: 50)
+                .background(Color.green)
+                .cornerRadius(10)
+                
+                NavigationLink(destination: TravelSearachResultsView(arrTDdata: _arrTDdata),isActive: $showTravelSearchResultsView) {
+                    EmptyView();
+                }
+               
+            } //VStack
+        }
+        
+    }
+    
+    enum MyError: Error{
+        case runtimeError(String)
+    }
+    
+    func searchTravel() {
+        var body: [String: Any]  = [:]
+        
+        switch searchType {
+            case "Airline":
+            body = ["BookingCode": "","Airline": "\(selectedAirline)","APCode": "","Status": "","Year": "","SearchType": "Airline"]
+                print(body)
+            case "Year":
+            body = ["BookingCode": "","Airline": "Spirit","APCode": "","Status": "","Year": "\(year)","SearchType": "Year"]
+                print(body)
+            default:
+            print("Nothing selected")
+        }
+        
+        
+        //body = ["BookingCode": "","Airline": "Spirit","APCode": "","Status": "","Year": "","SearchType": "Airline"]
+        
+        
+        guard let _url = URL(string:"https://vast-scrubland-03341.herokuapp.com/api/travel/searchTravelRecord") else {return}
+       // guard let _url = URL(string:"http://localhost:5001/api/travel/searchTravelRecordJSON") else {return}
+    
+        
+        var request = URLRequest(url: _url)
+        request.httpMethod = "POST"
+        request.httpBody = try! JSONSerialization.data(withJSONObject: body, options: JSONSerialization.WritingOptions())
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        
+        URLSession.shared.dataTask(with:request) {
+            (data, response, error) in
+           
+            
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            
+            
+            do  {
+                
+                let travelData = try! JSONDecoder().decode(TDRoot.self, from: data)
+                
+                let tdHistoryItems = travelData.travel
+               
+                var oDetails: TravelDetailHistory
+                _arrTDdata = []
+                for tdHistItem in tdHistoryItems {
+                    oDetails = TravelDetailHistory(_id:tdHistItem._id,Destination: tdHistItem.Destination, Year: tdHistItem.Year, TravelDate: tdHistItem.TravelDate, Airline: tdHistItem.Airline, Hotel: tdHistItem.Hotel, BookingCode: tdHistItem.BookingCode, APCode: tdHistItem.APCode, ItineraryFlght: tdHistItem.ItineraryFlght, ItineraryHotel: tdHistItem.ItineraryHotel, Status: tdHistItem.Status, FlightCost: tdHistItem.FlightCost, HotelCost: tdHistItem.HotelCost, GirlCost: tdHistItem.GirlCost, TotalCost: tdHistItem.TotalCost, Rating: tdHistItem.Rating, Notes: tdHistItem.Notes)
+                   
+                    _arrTDdata.append(oDetails)
+                  
+                }
+                if _arrTDdata.count > 0 {
+                    showTravelSearchResultsView = true //activate navigation
+                }
+                if data != data {
+                    throw MyError.runtimeError("No data returned")
+                }
+                
+            }
+            catch {
+                let error = error
+                print(error.localizedDescription)
+            }
+            
+           
+        }
+        .resume()
+    }
+}
+
+struct SearchTravel_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            SearchTravel()
+        }
+    }
+}
