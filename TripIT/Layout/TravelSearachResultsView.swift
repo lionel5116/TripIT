@@ -25,6 +25,7 @@ struct TravelSearachResultsView: View {
                     Text(TDItem.Airline)
                     Text(TDItem.TravelDate)
                     Text(TDItem.Year)
+                    Text(String(TDItem.TotalCost!))
                     
                 }
             }///List

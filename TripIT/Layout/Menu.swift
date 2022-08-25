@@ -25,6 +25,14 @@ struct Menu: View {
                             .foregroundColor(.white)
                             .cornerRadius(20)
                    }
+                    NavigationLink(destination: AppointmentView()) {
+                        Text("Appointments/Sessions")
+                            .frame(width: 280, height: 50)
+                            .font(.system(size:20,weight: .bold,design: .default))
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(20)
+                   }
                     NavigationLink(destination:TravelItemsHistory())
                     {
                         Text("View Travel History")
@@ -42,7 +50,6 @@ struct Menu: View {
                             .foregroundColor(.white)
                             .cornerRadius(20)
                    }
-                    
                     NavigationLink(destination: ContentView()) {
                         Text("Return to Main")
                             .frame(width: 280, height: 50)
