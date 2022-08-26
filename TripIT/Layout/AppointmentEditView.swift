@@ -1,16 +1,19 @@
 //
-//  AppointmentView.swift
+//  AppointmentEditView.swift
 //  TripIT
 //
-//  Created by lionel jones on 8/25/22.
+//  Created by lionel jones on 8/26/22.
 //
 
 import SwiftUI
 import RealmSwift
 
-struct AppointmentView: View {
+
+
+struct AppointmentEditView: View {
     
-    @ObservedResults(Appointment.self) var APPmtItems
+    @ObservedRealmObject var appointmentItem : Appointment
+    var itemToEdit: Appointment?
     
     @State private var showAlert = false
     
@@ -19,7 +22,7 @@ struct AppointmentView: View {
     @State private var ContactPerson  = ""
     @State private var Status  = ""
     @State private var Location  = ""
-    @State private var Cost  = ""
+    @State private var Cost = ""
     @State private var Notes  = ""
     
     //dismissing the keyboard
@@ -37,6 +40,22 @@ struct AppointmentView: View {
        "Complete"
     ]
     
+    init(appointmentItem:Appointment,itemToEdit:Appointment? = nil) {
+        self.appointmentItem = appointmentItem
+        self.itemToEdit = itemToEdit
+        
+        if let _itemToEdit = itemToEdit {
+            _AppDate = State(initialValue: _itemToEdit.AppDate)
+            _AppType = State(initialValue: _itemToEdit.AppType)
+            _ContactPerson = State(initialValue: _itemToEdit.ContactPerson)
+            _Status = State(initialValue: _itemToEdit.Status)
+            _Location = State(initialValue: _itemToEdit.Location)
+            _Cost = State(initialValue: String(_itemToEdit.Cost!))
+            _Notes = State(initialValue: _itemToEdit.Notes)
+        }
+        
+    }
+
     
     var body: some View {
         ZStack {
@@ -89,8 +108,9 @@ struct AppointmentView: View {
                         .frame(width: 300, height: 200)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                Button("Schedule") {
-                    addAppItem()
+                        
+                Button("Update") {
+                    editAppItem()
                 }
                 .foregroundColor(.white)
                 .frame(width: 300, height: 50)
@@ -105,63 +125,35 @@ struct AppointmentView: View {
                  
         } //VStack
       }//ZStack
-   }//Some View
-    
-    enum MyError: Error{
-        case runtimeError(String)
     }
     
-    func clearRecord(){
-        AppDate = ""
-        AppType  = ""
-        ContactPerson  = ""
-        Status  = ""
-        Location  = ""
-        Cost  = ""
-        Notes  = ""
-    }
-    
-    func addAppItem() {
-        if AppDate != ""
-            && AppType != ""
-            && ContactPerson != ""
-            && Status != ""
-            && Location != ""
-            && Cost != ""
-            && Notes != "" {
-            
-            
+    func editAppItem() {
+        if let itemToEdit = itemToEdit {
             do {
-                let appNewItem = Appointment(AppDate: AppDate,
-                                             AppType: AppType,
-                                             ContactPerson: ContactPerson,
-                                             Status: Status,
-                                             Location:Location,
-                                             Cost:Double(Cost),
-                                             Notes: Notes)
-                print(appNewItem)
-                
-                guard AppDate != "" else {
-                    throw MyError.runtimeError("Need a Destination at least to save a record")
+                let realm = try Realm()
+                guard let objectToUpdate = realm.object(ofType: Appointment.self, forPrimaryKey: itemToEdit._id) else {return}
+                try realm.write {
+                    objectToUpdate.AppDate = AppDate
+                    objectToUpdate.AppType = AppType
+                    objectToUpdate.ContactPerson = ContactPerson
+                    objectToUpdate.Status = Status
+                    objectToUpdate.Location = Location
+                    objectToUpdate.Cost = Double(Cost)
+                    objectToUpdate.Notes = Notes
                 }
-                $APPmtItems.append(appNewItem)
                 dismiss()
-                clearRecord()
-                print("Succesfully Wrote Record to Realm Local..")
             }
             catch {
-                print("Failed to write record  to Realm Local:  \(error.localizedDescription)")
+                print(error)
             }
-           
         }
-        else {
-            showAlert.toggle()
-        }
-    }//functon addAppItem
-}
-
-struct AppointmentView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppointmentView()
     }
 }
+
+/*
+struct AppointmentEditView_Previews: PreviewProvider {
+    static var previews: some View {
+        AppointmentEditView()
+    }
+}
+ */

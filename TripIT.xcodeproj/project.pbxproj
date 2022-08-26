@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1502C86228B906CA004C2754 /* AppointmentItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1502C86128B906CA004C2754 /* AppointmentItemsView.swift */; };
+		1502C86428B90C28004C2754 /* AppointmentEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1502C86328B90C28004C2754 /* AppointmentEditView.swift */; };
 		151F96C528B6A11300039128 /* SearchTravel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151F96C428B6A11300039128 /* SearchTravel.swift */; };
 		151F96C728B6AEA700039128 /* TravelSearachResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151F96C628B6AEA700039128 /* TravelSearachResultsView.swift */; };
 		15297B6428AAF8510091BFF5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 15297B6328AAF8510091BFF5 /* Realm */; };
@@ -48,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1502C86128B906CA004C2754 /* AppointmentItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentItemsView.swift; sourceTree = "<group>"; };
+		1502C86328B90C28004C2754 /* AppointmentEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentEditView.swift; sourceTree = "<group>"; };
 		151F96C428B6A11300039128 /* SearchTravel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTravel.swift; sourceTree = "<group>"; };
 		151F96C628B6AEA700039128 /* TravelSearachResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelSearachResultsView.swift; sourceTree = "<group>"; };
 		1534B40D28AB1B89009B7BC1 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 				151F96C428B6A11300039128 /* SearchTravel.swift */,
 				151F96C628B6AEA700039128 /* TravelSearachResultsView.swift */,
 				159E9A0728B7F84500E57ED2 /* AppointmentView.swift */,
+				1502C86128B906CA004C2754 /* AppointmentItemsView.swift */,
+				1502C86328B90C28004C2754 /* AppointmentEditView.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -324,12 +330,14 @@
 				154EDF7828B053D300BFD81A /* TravelItemsView.swift in Sources */,
 				157B86BB28B6673500B3FA74 /* TDRoot.swift in Sources */,
 				15DE459728B081CF009EA8D7 /* TravelDetailEditView.swift in Sources */,
+				1502C86428B90C28004C2754 /* AppointmentEditView.swift in Sources */,
 				1541C50428B566B0008DD377 /* TravelDetailHistory.swift in Sources */,
 				15CB3D7328ABFC0B00E121C3 /* TravelDetailItem.swift in Sources */,
 				15CB6D9C28A9961A0096C4BB /* ContentView.swift in Sources */,
 				1534B40E28AB1B89009B7BC1 /* Menu.swift in Sources */,
 				1541C50228B55E18008DD377 /* TravelItemsHistory.swift in Sources */,
 				15CB6D9A28A9961A0096C4BB /* TripITApp.swift in Sources */,
+				1502C86228B906CA004C2754 /* AppointmentItemsView.swift in Sources */,
 				151F96C528B6A11300039128 /* SearchTravel.swift in Sources */,
 				1534B41028AB1E27009B7BC1 /* TravelView.swift in Sources */,
 				159E9A0828B7F84500E57ED2 /* AppointmentView.swift in Sources */,

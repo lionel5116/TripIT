@@ -25,7 +25,7 @@ struct Menu: View {
                             .foregroundColor(.white)
                             .cornerRadius(20)
                    }
-                    NavigationLink(destination: AppointmentView()) {
+                    NavigationLink(destination: AppointmentItemsView(appointmentItem: Appointment())) {
                         Text("Appointments/Sessions")
                             .frame(width: 280, height: 50)
                             .font(.system(size:20,weight: .bold,design: .default))
