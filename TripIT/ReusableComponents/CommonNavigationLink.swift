@@ -53,4 +53,20 @@ struct CommonNavigationLink<T:View>: View {
     }
 }
 
+struct CommonNavigationLink_Previews: PreviewProvider {
+    static var previews: some View {
+        CommonNavigationLink(destination: Menu(),
+                            btnTitle: "Log In",
+                             btnWidth: 335,
+                             btnHeight: 60,
+                             fontWeight: .semibold,
+                             foregroundColor: .white,
+                             backgroundColor: Color.init(red: 22/255, green: 70/255, blue: 190/255),
+                             conrnerRadius: 30,
+                             font: .system(size:20,design: .default))
+
+    }
+
+}
+
 
