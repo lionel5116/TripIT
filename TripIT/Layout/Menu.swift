@@ -16,6 +16,7 @@ struct Menu: View {
                 VStack{
                     
                     //environment(\.realmConfiguration,(realmApp.currentUser?.configuration(partitionValue: "owner_id"))!)
+                    /*
                     NavigationLink(destination:TravelItemsView(travelDetailItem:TravelDetailItem()))
                     {
                         Text("Travel Items")
@@ -25,39 +26,54 @@ struct Menu: View {
                             .foregroundColor(.white)
                             .cornerRadius(20)
                    }
-                    NavigationLink(destination: AppointmentItemsView(appointmentItem: Appointment())) {
-                        Text("Appointments/Sessions")
-                            .frame(width: 280, height: 50)
-                            .font(.system(size:20,weight: .bold,design: .default))
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                   }
-                    NavigationLink(destination:TravelItemsHistory())
-                    {
-                        Text("View Travel History")
-                            .frame(width: 280, height: 50)
-                            .font(.system(size:20,weight: .bold,design: .default))
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                   }
-                    NavigationLink(destination: SearchTravel()) {
-                        Text("Search Travel")
-                            .frame(width: 280, height: 50)
-                            .font(.system(size:20,weight: .bold,design: .default))
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                   }
-                    NavigationLink(destination: ContentView()) {
-                        Text("Return to Main")
-                            .frame(width: 280, height: 50)
-                            .font(.system(size:20,weight: .bold,design: .default))
-                            .background(Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                   }
+                     */
+                    CommonNavigationLink(destination:TravelItemsView(travelDetailItem:TravelDetailItem()), btnTitle: "Travel Items",
+                                         btnWidth: 280,
+                                         btnHeight: 50,
+                                         fontWeight: .bold,
+                                         foregroundColor: .white,
+                                         backgroundColor: Color.blue,
+                                         conrnerRadius: 30,
+                                         font: .system(size:20,design: .default))
+                       
+                 
+                    CommonNavigationLink(destination: AppointmentItemsView(appointmentItem: Appointment()), btnTitle: "Appointments/Sessions",
+                                         btnWidth: 280,
+                                         btnHeight: 50,
+                                         fontWeight: .bold,
+                                         foregroundColor: .white,
+                                         backgroundColor: Color.blue,
+                                         conrnerRadius: 30,
+                                         font: .system(size:20,design: .default))
+                    
+                    CommonNavigationLink(destination: TravelItemsHistory(), btnTitle: "View Travel History",
+                                         btnWidth: 280,
+                                         btnHeight: 50,
+                                         fontWeight: .bold,
+                                         foregroundColor: .white,
+                                         backgroundColor: Color.blue,
+                                         conrnerRadius: 30,
+                                         font: .system(size:20,design: .default))
+                       
+                    CommonNavigationLink(destination: SearchTravel(), btnTitle: "Search Travel",
+                                         btnWidth: 280,
+                                         btnHeight: 50,
+                                         fontWeight: .bold,
+                                         foregroundColor: .white,
+                                         backgroundColor: Color.blue,
+                                         conrnerRadius: 30,
+                                         font: .system(size:20,design: .default))
+                    
+                    CommonNavigationLink(destination: ContentView(), btnTitle: "Main",
+                                         btnWidth: 280,
+                                         btnHeight: 50,
+                                         fontWeight: .bold,
+                                         foregroundColor: .white,
+                                         backgroundColor: Color.gray,
+                                         conrnerRadius: 30,
+                                         font: .system(size:20,design: .default))
+                  
+                   
                 } //VStack
             } //ZStack
        

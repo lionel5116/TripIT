@@ -52,7 +52,7 @@ struct ContentView: View {
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongPassword))
                     
-                    Button("Feel the Power*") {
+                    Button("Submit") {
                         authenticateUser(username: username, password: password)
                     }
                     .foregroundColor(.white)
@@ -60,6 +60,7 @@ struct ContentView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
                     
+                    /*
                     Button("Realm Connect") {
                         //connectToRealm()
                         print("Temporarily Diabling this for now ...")
@@ -74,6 +75,7 @@ struct ContentView: View {
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
+                    */
                     
                     NavigationLink(destination: Text("You are logged in \(username)"),isActive: $showingLoginScreen) {
                         EmptyView();
