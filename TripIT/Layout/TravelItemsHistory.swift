@@ -12,6 +12,9 @@ import SwiftUI
 
 struct TravelItemsHistory: View {
     @State var arrTDdata: [TravelDetailHistory] = []
+    //This line below is left there because it is used an example of when you do not have pass in a value
+    //to this struct if you provide an initial value to the property - see the swiftui doc on asana
+    //var testVariable: String = ""
     
     
     var body: some View {
